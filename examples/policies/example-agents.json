@@ -1,0 +1,26 @@
+{
+  "version": "0.1",
+  "issuer_metadata": [
+    { "issuer": "https://issuer.example", "jwks_uri": "https://issuer.example/.well-known/jwks.json" }
+  ],
+  "supported_auth": ["dpop_jwt"],
+  "operations": [
+    {
+      "resource": "https://api.example.com/v1/orders/*",
+      "actions": ["read"],
+      "required_scopes": ["orders:read"]
+    },
+    {
+      "resource": "https://api.example.com/v1/orders",
+      "actions": ["write"],
+      "required_scopes": ["orders:write"]
+    }
+  ],
+  "rate_limits": [
+    { "key": "agent+principal", "resource": "https://api.example.com/v1/orders/*", "limit": { "rpm": 60 } }
+  ],
+  "pricing": { "unit": "request", "amount_usd": 0.0005 },
+  "contact": "security@example.com",
+  "enforcement": { "reject_on_missing_agent_identity": true }
+}
+

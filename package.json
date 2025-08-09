@@ -1,0 +1,23 @@
+{
+  "name": "auth-for-agents",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "npm run -ws --if-present build",
+    "lint": "npm run -ws --if-present lint",
+    "typecheck": "npm run -ws --if-present typecheck",
+    "clean": "npm run -ws --if-present clean"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.1"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "example-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^3.73.0",
+    "typescript": "^5.4.0",
+    "@auth4agents/site-sdk": "file:../../packages/site-sdk"
+  }
+}
+

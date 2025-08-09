@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "env": { "es2022": true, "node": true },
+  "parserOptions": { "sourceType": "module" },
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "no-unused-vars": ["warn", { "args": "after-used", "argsIgnorePattern": "^_" }],
+    "no-constant-condition": ["error", { "checkLoops": false }]
+  },
+  "ignorePatterns": ["dist/**", "node_modules/**"]
+}
+

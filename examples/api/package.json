@@ -1,0 +1,20 @@
+{
+  "name": "example-api",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --loader ts-node/esm src/server.ts",
+    "dev": "tsx src/server.ts"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "@auth4agents/site-sdk": "file:../../packages/site-sdk"
+  },
+  "devDependencies": {
+    "tsx": "^4.16.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}
+
