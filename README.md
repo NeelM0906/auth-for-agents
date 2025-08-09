@@ -1,6 +1,5 @@
 ## Auth for Agents
 
-[![CI](https://github.com/NeelM0906/auth-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/NeelM0906/auth-for-agents/actions)
 
 <p align="center">
   <img src="docs/logo.png" alt="Auth for Agents logo" width="220" />
