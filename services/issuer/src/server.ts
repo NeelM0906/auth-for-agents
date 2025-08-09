@@ -3,6 +3,7 @@ import cors from '@fastify/cors';
 import formbody from '@fastify/formbody';
 import { generateKeyPair, exportJWK, JWK } from 'jose';
 import { signAgentIdentity, signCapability } from '@auth4agents/credentials';
+import { VerifiedCredentialSchema } from '@auth4agents/credentials';
 
 const app = Fastify({ logger: true });
 await app.register(cors);
@@ -38,7 +39,7 @@ app.post('/register-agent', async (req, reply) => {
 });
 
 app.post('/token/agent-identity', async (req, reply) => {
-  const { sub, aud, cnf } = (req.body as any) || {};
+  const { sub, aud, cnf, email, phone } = (req.body as any) || {};
   if (!sub || !aud || !cnf?.jkt) return reply.code(400).send({ error: 'invalid_request' });
   const now = Math.floor(Date.now() / 1000);
   const key = await getSigningKey();
@@ -76,6 +77,23 @@ app.post('/token/delegation', async (req, reply) => {
     key
   );
   return reply.send({ token: jwt, jti });
+});
+
+// ZK-style verified credential issuance (placeholder; accepts email/phone and returns stub VC)
+app.post('/issue/verified-credential', async (req, reply) => {
+  const { email, phone, jurisdictionCode } = (req.body as any) || {};
+  if (!email && !phone) return reply.code(400).send({ error: 'invalid_request' });
+  const now = Date.now();
+  const vc = {
+    zkProof: { commitment: 'stub', nullifier: 'stub', merkleProof: 'stub' },
+    humanHash: 'sha256:' + Buffer.from(`${email || ''}|${phone || ''}`).toString('hex'),
+    verificationLevel: email && phone ? 'email+phone' : email ? 'email' : 'phone',
+    jurisdictionCode: jurisdictionCode || 'US',
+    issueTimestamp: now,
+    expiryTimestamp: now + 365 * 24 * 3600 * 1000
+  } as any;
+  VerifiedCredentialSchema.parse(vc);
+  return reply.send(vc);
 });
 
 app.post('/revoke', async (req, reply) => {

@@ -13,6 +13,8 @@ export type ValidatorOptions = {
   rateLimiter: RateLimiter;
   revocations?: RevocationChecker;
   audit?: AuditSink;
+  // Capability enforcement toggles
+  enforceCapabilities?: boolean;
 };
 
 export type ValidationResult =
@@ -56,6 +58,14 @@ export async function validateRequest(req: Request, opts: ValidatorOptions): Pro
     // scope check
     const hasScopes = op.required_scopes.every(s => capRes.payload.att.some(a => a.scopes.includes(s)));
     if (!hasScopes) return denied('insufficient_scope');
+
+    // capability-based enforcement (optional, hybrid model)
+    if (opts.enforceCapabilities) {
+      const caps = capRes.payload.att.flatMap(a => a.scopes.map(sc => sc));
+      // Basic check: if policy operation declares a capability tag, ensure present. For MVP, treat required_scopes as capability names, reuse above list.
+      const ok = op.required_scopes.every(s => caps.includes(s));
+      if (!ok) return denied('insufficient_scope', 'capability_missing');
+    }
 
     // revocation
     if (opts.revocations && (await opts.revocations.isRevoked(capRes.payload.jti))) {

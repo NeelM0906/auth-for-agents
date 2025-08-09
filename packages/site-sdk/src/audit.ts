@@ -6,6 +6,7 @@ export type AuditEvent = {
   principal?: { sub?: string };
   cap?: { jti?: string; scopes?: string[] };
   decision: { allowed: boolean; ratelimit?: { key: string; remaining?: number } };
+  capability?: { enforced: boolean; reason?: string };
 };
 
 export interface AuditSink {

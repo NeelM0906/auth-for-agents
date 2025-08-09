@@ -17,10 +17,15 @@ Matching rules:
 - actions map to HTTP methods: GET→read/list, POST→write/execute, PUT/PATCH→write, DELETE→delete
 - required_scopes must be present in at least one `att` block of `cap_jwt`
 
+Capability and tool enforcement (hybrid):
+- Sites MAY declare capability tags that map to required scopes (initial MVP parity).
+- Future: sites MAY publish granular capability descriptors (data/network/compute) used by the validator for additional checks.
+
 Security considerations:
 - Audience-binding required (aud = site origin)
 - Short TTLs recommended: ai_jwt ≤ 5m, cap_jwt ≤ 30m
 - DPoP required; `cnf.jkt` must match DPoP JKT
+ - Optional zero-knowledge verified identity credentials can be presented out-of-band; validators must not require PII disclosure.
 
 See `docs/policy.schema.json` for JSON schema.
 
