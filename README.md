@@ -7,7 +7,7 @@
   <br/>
 </p>
 
-### Short description
+### Description
 
 Auth for Agents is an open, minimal identity and authorization layer for AI agents. It lets websites and APIs safely identify agents, bind them to their controllers and principals, enforce site-declared policy, and maintain accountability with short-lived, DPoP-bound credentials.
 
