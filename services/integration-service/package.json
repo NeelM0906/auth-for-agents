@@ -1,0 +1,23 @@
+{
+  "name": "@auth4agents/integration-service",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    "./generators/ExpressGenerator.js": "./dist/generators/ExpressGenerator.js",
+    "./generators/CloudflareWorkerGenerator.js": "./dist/generators/CloudflareWorkerGenerator.js",
+    "./generators/NginxGenerator.js": "./dist/generators/NginxGenerator.js",
+    "./generators/WordPressGenerator.js": "./dist/generators/WordPressGenerator.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@auth4agents/policy": "file:../../packages/policy"
+  },
+  "devDependencies": {
+    "typescript": "5.5.4"
+  }
+}

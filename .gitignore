@@ -6,4 +6,7 @@ dist
 coverage
 .idea
 .vscode
+TASKS.md
+.gitignore
+
 

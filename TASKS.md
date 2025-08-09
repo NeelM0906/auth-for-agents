@@ -111,5 +111,40 @@ Acceptance criteria:
 ### Execution log
 - 2025-08-09: Added TASKS.md with full MVP plan, acceptance criteria, and dependencies.
 - 2025-08-09: Scaffolding done. Implemented `@auth4agents/policy` (types, validator, matcher, URL loader cache). Added example policy JSON.
+- 2025-08-09: Implemented Robots Builder skeleton (frontend app, API, integration generators). Added docs: ROBOTS_BUILDER.md, POLICY_BUILDER_API.md, INTEGRATION_SERVICE_API.md. Updated INTEGRATION.md links.
+
+
+### 12. Robots.txt Builder (Visual Policy + Code/Deploy)
+- [~] Frontend (Next.js app: visual builder, dashboard, deploy)
+  - [x] Components: `PolicyBuilder/*` (ResourceSelector, AgentTypeSelector, PermissionMatrix [stub], RateLimitConfig, PolicyPreview)
+  - [x] Pages: `builder`, `dashboard`, `deploy`
+  - [x] Lib: `policyGenerator`, `codeGenerator`, `templateLibrary`
+  - [x] State mgmt (Zustand) + real-time validation (debounced)
+  - [ ] Basic analytics hooks (PostHog/Mixpanel stub)
+- [~] Backend API (`services/policy-builder-api`)
+  - [x] Routes: `policies`, `templates`, `deployment`, `analytics`
+  - [x] Services: `PolicyGenerator`, `CodeGenerator`, `TemplateManager`, `DeploymentService` [stub]
+  - [x] Models: `Policy`, `Template`, `User` (TS types only; in-memory store)
+  - [ ] AuthN stub (API key) + input validation (Zod) [input validation done]
+- [~] Integration Service (`services/integration-service`)
+  - [x] Generators: Express, Cloudflare Worker, Nginx, WordPress
+  - [ ] Deployers: GitHub PR, Netlify, Vercel (stubs) [Vercel stub done]
+  - [x] Code sanitizer + template rendering (sanitizer done)
+- [~] Testing & Validation
+  - [x] `@auth4agents/policy-tester`: simulate requests vs policy; include standard test cases
+  - [ ] E2E: Playwright flow for builder → preview → generate → download
+- [x] Docs
+  - [x] Add Robots.txt Builder guide to `docs/`
+  - [x] API docs for policy-builder-api + integration-service
+
+Acceptance criteria:
+- Visual builder produces a valid policy JSON that passes validator and standard tests.
+- Code generation returns platform-specific middleware scaffold using `@auth4agents/site-sdk`.
+- One-click deploy to Vercel produces a preview URL with `.well-known/agents` served.
+- Example: E-commerce template leads to sensible defaults (allow search, block scrapers, rate-limit assistants).
+
+Dependencies:
+- Reuse `@auth4agents/policy` for schema/validation; `@auth4agents/site-sdk` for middleware integration.
+- Add Next.js/React, Express, Zod, and minimal client libs.
 
 

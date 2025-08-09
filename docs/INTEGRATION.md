@@ -5,14 +5,18 @@
 2) Mount the middleware.
 
 ```ts
-import { agentAuthMiddleware } from '@auth4agents/site-sdk/src/express';
-import { InMemoryRateLimiter } from '@auth4agents/site-sdk/src/rate';
+import { agentAuthMiddleware, InMemoryRateLimiter } from '@auth4agents/site-sdk';
 app.use(agentAuthMiddleware({
   policyUrl: 'https://your.site/.well-known/agents',
   acceptedIssuers: ['https://issuer.example'],
   rateLimiter: new InMemoryRateLimiter()
 }));
 ```
+
+### More
+- Robots Builder UI walkthrough: [ROBOTS_BUILDER.md](./ROBOTS_BUILDER.md)
+- Policy Builder API: [POLICY_BUILDER_API.md](./POLICY_BUILDER_API.md)
+- Integration Service API (generators): [INTEGRATION_SERVICE_API.md](./INTEGRATION_SERVICE_API.md)
 
 ### Agent (Node)
 ```ts
