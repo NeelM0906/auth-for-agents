@@ -1,6 +1,6 @@
 import { exportJWK, generateKeyPair } from 'jose';
-import { computeJkt } from '@auth4agents/credentials/src';
-import { createDpopProof } from '@auth4agents/dpop/src';
+import { computeJkt } from '@auth4agents/credentials';
+import { createDpopProof } from '@auth4agents/dpop';
 
 async function main() {
   const apiBase = 'http://localhost:3000';

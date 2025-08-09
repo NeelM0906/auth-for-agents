@@ -8,23 +8,7 @@ const rate = new InMemoryRateLimiter();
 const audit = new MemoryAuditSink();
 
 app.use(express.json());
-app.use(
-  agentAuthMiddleware({
-    policyUrl: 'http://localhost:3000/.well-known/agents',
-    acceptedIssuers: ['http://localhost:4000'],
-    rateLimiter: rate,
-    audit
-  })
-);
-
-app.get('/v1/orders/:id', (req, res) => {
-  res.json({ id: req.params.id, status: 'ok' });
-});
-
-app.post('/v1/orders', (req, res) => {
-  res.status(201).json({ id: 'ord_' + Math.random().toString(36).slice(2) });
-});
-
+// Mount protected routes after policy route so the policy is public
 app.get('/.well-known/agents', (_req, res) => {
   res.type('application/json').send(
     JSON.stringify(
@@ -44,6 +28,25 @@ app.get('/.well-known/agents', (_req, res) => {
     )
   );
 });
+
+app.use(
+  agentAuthMiddleware({
+    policyUrl: 'http://localhost:3000/.well-known/agents',
+    acceptedIssuers: ['http://localhost:4000'],
+    rateLimiter: rate,
+    audit
+  })
+);
+
+app.get('/v1/orders/:id', (req, res) => {
+  res.json({ id: req.params.id, status: 'ok' });
+});
+
+app.post('/v1/orders', (req, res) => {
+  res.status(201).json({ id: 'ord_' + Math.random().toString(36).slice(2) });
+});
+
+// (policy route moved above)
 
 app.listen(3000, () => console.log('Example API listening on :3000'));
 

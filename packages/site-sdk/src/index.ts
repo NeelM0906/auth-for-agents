@@ -96,6 +96,14 @@ export async function validateRequest(req: Request, opts: ValidatorOptions): Pro
   }
 }
 
+// Re-exports for adapters and utilities
+export * from './express';
+export * from './worker';
+export * from './rate';
+export * from './audit';
+export * from './revocation-http';
+export * from './revocation';
+
 export function parseAuth(v: string): { scheme: string; token: string } {
   const [scheme = '', ...rest] = v.split(' ');
   return { scheme: scheme.toLowerCase(), token: rest.join(' ') };
