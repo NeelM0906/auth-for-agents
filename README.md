@@ -22,7 +22,9 @@ Auth for Agents is an open, minimal identity and authorization layer for AI agen
 - [What’s included](#whats-included)
 - [How it works](#how-it-works)
 - [Architecture](#architecture)
+- [Robots Builder and code generation](#robots-builder-and-code-generation)
 - [Quickstart](#quickstart)
+- [Examples walkthrough](#examples-walkthrough)
 - [Policy format](#policy-format)
 - [Headers and tokens](#headers-and-tokens)
 - [Error codes](#error-codes)
@@ -38,8 +40,12 @@ Auth for Agents is an open, minimal identity and authorization layer for AI agen
 - Site-side enforcement SDK (Express middleware + Cloudflare Worker adapter) (`@auth4agents/site-sdk`)
 - Agent SDK (Node) with `dpopFetch` (`@auth4agents/agent-sdk`)
 - Issuer service (dev) with JWKS, token mint, and revocations (`services/issuer`)
+- Policy Tester (`@auth4agents/policy-tester`)
+- Robots Builder UI (Next.js) (`examples/robots-builder`)
+- Policy Builder API (`services/policy-builder-api`)
+- Integration Service (code generators + deployer stubs) (`services/integration-service`)
 - Examples: Express API, Cloudflare Worker, Agent script
-- Docs: integration, policy schema, error codes, cURL examples
+- Docs: integration, policy schema, error codes, robots builder, integration APIs, and a full examples walkthrough
 
 ### How it works
 
@@ -58,6 +64,17 @@ Auth for Agents is an open, minimal identity and authorization layer for AI agen
 - `packages/agent-sdk`: Agent key mgmt and `dpopFetch`
 - `services/issuer`: Dev issuer (Fastify) for JWKS, token minting, revocations
 - `examples/`: API (Express), Worker (Cloudflare), Agent script (Node)
+
+### Robots Builder and code generation
+
+- Visual builder app: `examples/robots-builder` (Next.js) to compose a site policy and preview JSON.
+- API: `services/policy-builder-api` to generate validated policies and platform-specific integration code.
+- Integration Service: `services/integration-service` with generators for Express, Cloudflare Worker, Nginx, WordPress (and deployer stubs like Vercel).
+
+Docs:
+- Robots Builder guide: [`docs/ROBOTS_BUILDER.md`](docs/ROBOTS_BUILDER.md)
+- Policy Builder API: [`docs/POLICY_BUILDER_API.md`](docs/POLICY_BUILDER_API.md)
+- Integration Service API: [`docs/INTEGRATION_SERVICE_API.md`](docs/INTEGRATION_SERVICE_API.md)
 
 ### Quickstart
 
@@ -104,6 +121,12 @@ Optional: run the Worker example
 cd examples/worker
 npm run dev   # requires: npm i -g wrangler
 ```
+
+### Examples walkthrough
+
+For a complete, runnable tour of every validator response (happy path and failures like missing headers, bad auth scheme, insufficient scope, binding mismatch, ratelimited, revoked, etc.), see:
+
+- [`docs/examples.md`](docs/examples.md)
 
 ### Policy format
 
