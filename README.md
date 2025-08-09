@@ -2,9 +2,10 @@
 
 [![CI](https://github.com/NeelM0906/auth-for-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/NeelM0906/auth-for-agents/actions)
 
-### Logo
-
-// Add a logo at `docs/logo.png` and replace this line with an <img> tag.
+<p align="center">
+  <img src="docs/logo.png" alt="Auth for Agents logo" width="220" />
+  <br/>
+</p>
 
 ### Short description
 
