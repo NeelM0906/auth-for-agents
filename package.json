@@ -5,8 +5,7 @@
   "workspaces": [
     "packages/*",
     "services/*",
-    "examples/*",
-    "backend"
+    "examples/*"
   ],
   "scripts": {
     "build": "npm run -ws --if-present build",
